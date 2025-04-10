@@ -28,8 +28,8 @@ Energy Miner is a Perl script designed for extracting and analyzing energy value
 1. **Clone this Repository:**
 
    ```bash
-   git clone https://github.com/your-username/energy-miner.git
-   cd energy-miner
+   git clone https://github.com/talipovm-nmsu/mine.pl.git
+   cd mine.pl
    ```
 
 2. **Make the Script Executable:**
