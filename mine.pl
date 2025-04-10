@@ -373,11 +373,13 @@ unless ($terse) {
 #------------------------------------------------------------------------------
 if ($no_sort) {
     foreach my $key (sort keys %file_energies) {
-        printf "%-40s %10.${precision}f\n", $key, $file_energies{$key}{energy};
+        my $display_key = format_key($key);
+        printf "%-50s %10.${precision}f\n", $display_key, $file_energies{$key}{energy};
     }
 } else {
     foreach my $key (sort { $file_energies{$a}{energy} <=> $file_energies{$b}{energy} } keys %file_energies) {
-        printf "%-40s %10.${precision}f\n", $key, $file_energies{$key}{energy};
+        my $display_key = format_key($key);
+        printf "%-50s %10.${precision}f\n", $display_key, $file_energies{$key}{energy};
     }
 }
 
@@ -488,4 +490,20 @@ Examples:
   ./mine.pl --g1 file1.log file2.log --g2 file3.log --zero=1 --verbose
 
 END_HELP
+}
+
+#------------------------------------------------------------------------------
+# Subroutine: format_key
+#
+# DESCRIPTION:
+#   If a key represents a group (it starts with a "+"), this subroutine strips
+#   the leading '+' and replaces subsequent '+' signs with commas for better readability.
+#------------------------------------------------------------------------------
+sub format_key {
+    my $key = shift;
+    if ($key =~ /^\+/) {
+        $key =~ s/^\+//;      # Remove the leading '+'
+        $key =~ s/\+/  +  /g;    # Replace each remaining '+' with ", "
+    }
+    return $key;
 }
